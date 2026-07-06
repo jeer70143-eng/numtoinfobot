@@ -1,6 +1,8 @@
-# ani.py - Single file for Render deployment
+# ani.py - Complete Fixed Code for Render
 import os
 import threading
+import asyncio
+import nest_asyncio
 import requests
 import sqlite3
 import datetime
@@ -9,6 +11,9 @@ import traceback
 from flask import Flask, jsonify
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, MessageHandler, filters
+
+# === Apply nest_asyncio for Python 3.11+ compatibility ===
+nest_asyncio.apply()
 
 # === LOGGING ===
 logging.basicConfig(
@@ -708,7 +713,7 @@ def health():
 if __name__ == '__main__':
     # Bot ko background thread mein start karo
     bot_thread = threading.Thread(target=run_bot)
-    bot_thread.daemon = True  # Background thread
+    bot_thread.daemon = True
     bot_thread.start()
     
     # Flask server start karo
